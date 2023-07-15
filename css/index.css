@@ -1,0 +1,15 @@
+.btn_container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn_row {
+    display: flex;
+    justify-content: space-between;
+    width: 1000px;
+}
+
+.canvas_container {
+    display: flex;
+    justify-content: center;
+}
