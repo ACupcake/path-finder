@@ -31,7 +31,7 @@ const PATH = "path";
 let tiles = [];
 let listener = null;
 
-class Square {
+class Tile {
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -93,14 +93,14 @@ function makeBoard() {
 
     for (y = 0; y < BOARD_SIZE; y += 1) {
         for (x = 0; x < BOARD_SIZE; x += 1) {
-            tiles.push(new Square(x + (TILE_SIZE * x), y + (TILE_SIZE * y)))
+            tiles.push(new Tile(x + (TILE_SIZE * x), y + (TILE_SIZE * y)))
         }
     }
 
     return tiles;
 }
 
-let listenerSelectTile = function selectTile(event) {
+let findClickedTile = (event) => {
     for (let tile of tiles) {
         if (tile.x <= event.x && tile.x + TILE_SIZE >= event.x) {
             if (tile.y <= event.y && tile.y + TILE_SIZE >= event.y) {
@@ -112,7 +112,7 @@ let listenerSelectTile = function selectTile(event) {
 
 function listenClick() {
     let canvas = document.getElementById('canvas');
-    canvas.addEventListener('click', (e) => listenerSelectTile(e))
+    canvas.addEventListener('click', (e) => findClickedTile(e))
 }
 
 function setPlayer(tile) {
@@ -141,7 +141,7 @@ function setEnd(tile) {
 }
 
 function selectTile(type) {
-    removeEventListener("click", (e) => listenerSelectTile(e));
+    removeEventListener("click", (e) => findClickedTile(e));
 
     func = () => null;
 
