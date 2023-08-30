@@ -1,7 +1,8 @@
 <canvas id="canvas" width="700" height="700"></canvas>
-<button onclick="selectTile('board')" id="board_bnt">Set Board</button>
-<button onclick="selectTile('player')" id="player_bnt">Set Player</button>
-<button onclick="selectTile('end')" id="end_bnt">Set End</button>
-<button onclick="findPath()" id="find_path_btn">Find Path</button>
-<script src="js/script.js"></script>
+<button id="board">Set Wall</button>
+<button onclick="(e) => selectTile(e, 'player')" id="player">Set Player</button>
+<button onclick="(e) => selectTile(e, 'end')" id="end">Set End</button>
+<button onclick="(e) => findPath(e)" id="find_path">Find Path</button>
+<!-- <script src="js/script.js"></script> -->
+<script type="module" src="js/main.js" ></script>
 <link rel="stylesheet" href="css/index.css">
