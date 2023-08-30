@@ -1,0 +1,22 @@
+{
+  "name": "path-finder",
+  "version": "1.0.0",
+  "description": "Simple path finder using bfs algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ACupcake/path-finder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ACupcake/path-finder/issues"
+  },
+  "homepage": "https://github.com/ACupcake/path-finder#readme",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
