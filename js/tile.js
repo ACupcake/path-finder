@@ -25,6 +25,22 @@ class Tile {
         this.image = FLOOR_IMAGE;
     }
 
+    setType(type) {
+        switch (type) {
+            case "player":
+                this.setPlayer();
+                break;
+            case "end":
+                this.setEnd();
+                break;
+            case "board":
+                type === WALL ? this.setFloor() : this.setWall();
+                break;
+            default:
+                console.log("Tile type not found!");
+        }
+    }
+
     setFloor() {
         this.color = FLOOR_COLOR;
         this.type = FLOOR;

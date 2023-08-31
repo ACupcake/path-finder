@@ -46,20 +46,11 @@ class Board {
     setTile(tile, type) {
         if (tile !== null) {
             switch (type) {
-                case "player":
-                    this.setPlayer(tile);
-                    break;
-                case "board":
-                    this.setBoard(tile);
-                    break;
-                case "end":
-                    this.setEnd(tile);
-                    break;
                 case "path":
                     this.findPath();
                     break;
                 default:
-                    console.log("Tile type not found!")
+                    tile.setType(type);
             }
             this.drawBoard();
         }
@@ -77,22 +68,22 @@ class Board {
         return this.tiles.findIndex((tile) => tile.type === type);
     }
 
-    rowMin(n) {
+    minimumRow(n) {
         return (Math.floor(n / BOARD_SIZE) * BOARD_SIZE);
     }
-    
-    rowMax(n) {
+
+    maximumRow(n) {
         return ((Math.floor(n / BOARD_SIZE) + 1) * BOARD_SIZE) - 1;
     }
 
-    solve(endPos, visited, queue) {
+    solve(endPosition, visited, queue) {
         let newQueue = [];
         let position;
 
-        while (queue.length > 0 && !visited.has(endPos)) {
+        while (queue.length > 0 && !visited.has(endPosition)) {
             position = queue.shift();
-    
-            if (position + 1 <= this.rowMax(position) &&
+
+            if (position + 1 <= this.maximumRow(position) &&
                 !visited.has(position + 1) &&
                 !(this.tiles[position + 1].type === WALL)
             ) {
@@ -100,11 +91,7 @@ class Board {
                 newQueue.push(position + 1);
             }
     
-            if (visited.has(endPos)) {
-                return [visited.get(endPos)];
-            }
-    
-            if (position - 1 >= this.rowMin(position) &&
+            if (position - 1 >= this.minimumRow(position) &&
                 !visited.has(position - 1) &&
                 !(this.tiles[position - 1].type === WALL)
             ) {
@@ -112,32 +99,24 @@ class Board {
                 newQueue.push(position - 1);
             }
     
-            if (visited.has(endPos)) {
-                return [visited.get(endPos)];
-            }
-    
             if (position + BOARD_SIZE < this.tiles.length &&
-                !visited.has(position+BOARD_SIZE) &&
-                !(this.tiles[position+BOARD_SIZE].type === WALL)
+                !visited.has(position + BOARD_SIZE) &&
+                !(this.tiles[position + BOARD_SIZE].type === WALL)
             ) {
                 visited.set(position + BOARD_SIZE, position);
                 newQueue.push(position + BOARD_SIZE);
             }
     
-            if (visited.has(endPos)) {
-                return [visited.get(endPos)];
-            }
-    
             if (position - BOARD_SIZE >= 0 &&
-                !visited.has(position-BOARD_SIZE) &&
-                !(this.tiles[position-BOARD_SIZE].type === WALL)
+                !visited.has(position - BOARD_SIZE) &&
+                !(this.tiles[position - BOARD_SIZE].type === WALL)
             ) {
                 visited.set(position - BOARD_SIZE, position);
                 newQueue.push(position - BOARD_SIZE);
             }
     
-            if (visited.has(endPos)) {
-                return [visited.get(endPos)];
+            if (visited.has(endPosition)) {
+                return [visited.get(endPosition)];
             }
         }
     
@@ -145,23 +124,20 @@ class Board {
             return []
         }
     
-        let result = this.solve(endPos, visited, newQueue);
+        let result = this.solve(endPosition, visited, newQueue);
     
         if (result.length === 0) return result;
     
         return [visited.get(result[0])].concat(result);
     }
 
-    drawPath(path, playerPos, endPos) {
-        let a = 1;
-
-        for (let index of path) {
-            if (index !== playerPos && index !== endPos) {
-                setTimeout(() => this.tiles[index].setPath(), 50 * a);
-                setTimeout(() => this.drawBoard(), 50 * a);
+    drawPath(path, playerPosition, endPosition) {
+        path.forEach((index, timer) => {
+            if (index !== playerPosition && index !== endPosition) {
+                setTimeout(() => this.tiles[index].setPath(), 50 * timer);
+                setTimeout(() => this.drawBoard(), 50 * timer);
             }
-            a = a + 1;
-        }
+        });
     }
 
     findPath() {
@@ -170,39 +146,21 @@ class Board {
         //FIXME: click while solving path changes the end
         //FIXME: click position when changing board position
 
-        let playerPosision = this.getPosition(PLAYER);
-        let endPosision = this.getPosition(END);
+        const playerPositionision = this.getPosition(PLAYER);
+        const endPositionision = this.getPosition(END);
 
-        if (playerPosision === - 1) {
+        if (playerPositionision === - 1) {
             console.log("Player is not set");
-        }
-        else if (endPosision === - 1) {
+        } else if (endPositionision === - 1) {
             console.log("End is not set");
         } else {
-            let path = this.solve(endPosision, new Map(), [playerPosision]);
+            const path = this.solve(endPositionision, new Map(), [playerPositionision]);
             if (path.length > 0) {
-                this.drawPath(path, playerPosision, endPosision);
+                this.drawPath(path, playerPositionision, endPositionision);
             } else {
                 console.log("Can't find path!")
             }
         }
-    }
-
-    // TODO: find a better place for tile setters
-    setPlayer(tile) {
-        this.cleanTileType(PLAYER)
-        tile.setPlayer();
-    }
-    setBoard(tile) {
-        if (tile.type === WALL) {
-            tile.setFloor();
-        } else {
-            tile.setWall();
-        }
-    }
-    setEnd(tile) {
-        this.cleanTileType(END)
-        tile.setEnd();
     }
 }
 
