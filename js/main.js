@@ -24,9 +24,7 @@ class Game {
 
     catchBoardClick(event, type) {
         const tile = this.board.findClickedTile(event);
-        if (tile !== null) {
-            this.board.setTile(tile, type);
-        }
+        this.board.setTile(tile, type);
     }
 }
 
