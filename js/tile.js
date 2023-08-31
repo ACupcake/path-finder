@@ -2,7 +2,6 @@ import {
     FLOOR_IMAGE,
     WALL_IMAGE,
     PLAYER_IMAGE,
-    END_IMAGE,
     PATH_IMAGE,
     FLOOR_COLOR,
     WALL_COLOR,
@@ -13,7 +12,8 @@ import {
     WALL,
     PLAYER,
     END,
-    PATH
+    PATH,
+    BOARD
 } from "./types.js"
 
 class Tile {
@@ -27,13 +27,13 @@ class Tile {
 
     setType(type) {
         switch (type) {
-            case "player":
+            case PLAYER:
                 this.setPlayer();
                 break;
-            case "end":
+            case END:
                 this.setEnd();
                 break;
-            case "board":
+            case BOARD:
                 this.type === WALL ? this.setFloor() : this.setWall();
                 break;
             default:

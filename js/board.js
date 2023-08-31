@@ -1,5 +1,5 @@
 import { Tile } from "./tile.js"
-import {WALL, PLAYER, END, PATH} from "./types.js"
+import { WALL, PLAYER, END, PATH, BOARD } from "./types.js"
 
 const TILE_SIZE = 50;
 const BOARD_SIZE = 13;
@@ -45,11 +45,11 @@ class Board {
 
     setTile(tile, type) {
         if (tile !== null) {
-            if (type !== "board") {
+            if (type !== BOARD) {
                 this.cleanTileType(type);
             }
             switch (type) {
-                case "path":
+                case PATH:
                     this.findPath();
                     break;
                 default:

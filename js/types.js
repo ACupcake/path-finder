@@ -24,3 +24,4 @@ export const WALL = "wall";
 export const PLAYER = "player";
 export const END = "end";
 export const PATH = "path";
+export const BOARD = "board";
