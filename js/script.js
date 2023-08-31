@@ -100,6 +100,17 @@ function makeBoard() {
     return tiles;
 }
 
+function drawPath(path, playerPos, endPos) {
+    let a = 1;
+
+    for (let index of path) {
+        if (index !== playerPos && index !== endPos) {
+            setTimeout(() => tiles[index].setPath(), 50*a);
+        }
+        a = a + 1;
+    }
+}
+
 let findClickedTile = (event) => {
     for (let tile of tiles) {
         if (tile.x <= event.x && tile.x + TILE_SIZE >= event.x) {
@@ -251,17 +262,6 @@ function cleanPath() {
         if (tile.type === PATH) {
             tile.setFloor();
         }
-    }
-}
-
-function drawPath(path, playerPos, endPos) {
-    let a = 1;
-
-    for (let index of path) {
-        if (index !== playerPos && index !== endPos) {
-            setTimeout(() => tiles[index].setPath(), 50*a);
-        }
-        a = a + 1;
     }
 }
 

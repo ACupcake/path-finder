@@ -1,29 +1,20 @@
-const FLOOR_IMAGE = new Image();
-FLOOR_IMAGE.src = 'images/floor.png';
-
-const WALL_IMAGE = new Image();
-WALL_IMAGE.src = 'images/wall.png';
-
-const PLAYER_IMAGE = new Image();
-PLAYER_IMAGE.src = 'images/player.png';
-
-const END_IMAGE = new Image();
-END_IMAGE.src = 'images/end.png';
-
-const PATH_IMAGE = new Image();
-PATH_IMAGE.src = 'images/path.png';
-
-const FLOOR_COLOR = "chocolate";
-const WALL_COLOR = "grey";
-const PLAYER_COLOR = "blue";
-const END_COLOR = "green";
-const PATH_COLOR = "yellow";
-
-const FLOOR = "floor";
-const WALL = "wall";
-const PLAYER = "player";
-const END = "end";
-const PATH = "path";
+import {
+    FLOOR_IMAGE,
+    WALL_IMAGE,
+    PLAYER_IMAGE,
+    END_IMAGE,
+    PATH_IMAGE,
+    FLOOR_COLOR,
+    WALL_COLOR,
+    PLAYER_COLOR,
+    END_COLOR,
+    PATH_COLOR,
+    FLOOR,
+    WALL,
+    PLAYER,
+    END,
+    PATH
+} from "./types.js"
 
 class Tile {
     constructor(x, y) {
@@ -63,7 +54,5 @@ class Tile {
         this.image = PATH_IMAGE
     }
 }
-
-
 
 export { Tile };
