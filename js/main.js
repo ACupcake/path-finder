@@ -1,31 +1,28 @@
 import Board from "./board.js"
 
-const BOARD = "board";
+const SET_BOARD = "board";
+const SET_PLAYER = "player";
+const SET_END = "end";
+const SET_PATH = "path";
 
 class Game {
     constructor() {
         this.board = new Board();
-        this.add_btn_listener();
-        this.boardListener;
-        this.listener = () => null;
+        this.action = null;
+        this.add_listeners();
     }
 
-    add_btn_listener() {
-        document.getElementById(BOARD).addEventListener("click", () => this.listenBoardClick(BOARD));
-    }
+    add_listeners() {
+        const canvas = document.getElementById('canvas');
+        canvas.addEventListener('click', (event) => this.catchBoardClick(event, this.action));
 
-    listenBoardClick(type) {
-        // FIXME: Fix event listener not removing 
-        removeEventListener("click", this.listener);
-
-        this.listener = (event) => this.catchBoardClick(event, type);
-
-        let canvas = document.getElementById('canvas');
-        canvas.addEventListener('click', this.listener);
+        document.getElementById(SET_BOARD).addEventListener("click", () => this.action = SET_BOARD);
+        document.getElementById(SET_PLAYER).addEventListener("click", () => this.action = SET_PLAYER);
+        document.getElementById(SET_END).addEventListener("click", () => this.action = SET_END);
+        document.getElementById(SET_PATH).addEventListener("click", (e) => this.catchBoardClick(e, SET_PATH));
     }
 
     catchBoardClick(event, type) {
-        console.log("oiogjirgir")
         const tile = this.board.findClickedTile(event);
         if (tile !== null) {
             this.board.setTile(tile, type);
@@ -33,4 +30,4 @@ class Game {
     }
 }
 
-let game = new Game();
+const game = new Game();
