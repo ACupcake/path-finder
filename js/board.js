@@ -45,6 +45,9 @@ class Board {
 
     setTile(tile, type) {
         if (tile !== null) {
+            if (type !== "board") {
+                this.cleanTileType(type);
+            }
             switch (type) {
                 case "path":
                     this.findPath();

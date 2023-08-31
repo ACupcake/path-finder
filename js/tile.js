@@ -34,7 +34,7 @@ class Tile {
                 this.setEnd();
                 break;
             case "board":
-                type === WALL ? this.setFloor() : this.setWall();
+                this.type === WALL ? this.setFloor() : this.setWall();
                 break;
             default:
                 console.log("Tile type not found!");
